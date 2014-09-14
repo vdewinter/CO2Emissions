@@ -15,7 +15,7 @@ h1 {
 }
 
 p {
-    margin: 30px 50px 0 50px;
+    margin: 30px 60px 0 50px;
     font-weight: 300;
 }
 
@@ -86,7 +86,7 @@ function drawGraph() {
             return d.y0 + d.y;
         });
 
-    var margin = {top: 30, right: 40, bottom: 30, left: 50},
+    var margin = {top: 30, right: 60, bottom: 30, left: 50},
         width = document.body.clientWidth - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
@@ -121,7 +121,8 @@ function drawGraph() {
         .style("position", "absolute")
         .style("z-index", "20")
         .style("visibility", "hidden")
-        .style("top", "170px")
+        .style("stroke", "white")
+        .style("top", "180px")
         .style("left", "100px");
 
     var xAxis = d3.svg.axis()
@@ -171,11 +172,13 @@ function drawGraph() {
             // get emissions for a year
             emissions = parseInt(selected[mousedate].emissions, 10);
           
-        d3.select(this)
-          .classed("hover", true)
-          .attr("stroke-width", "0.5px"), 
-          tooltip.html( "<p>" + d.key + "<br>" + currentYear + "<br>" + emissions + " kt" + "</p>" ).style("visibility", "visible");
-          
+            d3.select(this)
+                .classed("hover", true)
+                .attr("stroke-width", "0.5px"), 
+              
+                tooltip
+                    .html("<p>" + currentYear + "<br>" + d.key + "<br>" + emissions + " kt" + "</p>")
+                    .style("visibility", "visible");
         })
 
         .on("mouseout", function(d, i) {
@@ -185,23 +188,25 @@ function drawGraph() {
                 .attr("opacity", "1");
             d3.select(this)
                 .classed("hover", false)
-                .attr("stroke-width", "0px"), tooltip.html( "<p>" + d.key + "<br>" + currentYear + "<br>" + emissions + " kt" + "</p>" )
-                .style("visibility", "hidden");
+                .attr("stroke-width", "0px"), 
+
+                tooltip
+                    .html("<p>" + currentYear + "<br>" + d.key + "<br>" + emissions + " kt" + "</p>")
+                    .style("visibility", "hidden");
             })
         
-      var vertical = d3.select(".chart")
+    var vertical = d3.select("#chart")
         .append("div")
         .attr("class", "remove")
         .style("position", "absolute")
         .style("z-index", "19")
         .style("width", "1px")
-        .style("height", "380px")
-        .style("top", "10px")
-        .style("bottom", "30px")
+        .style("height", "357px")
+        .style("top", "150px")
         .style("left", "0px")
         .style("background", "#fff");
 
-      d3.select(".chart")
+    d3.select("#chart")
         .on("mousemove", function(){  
             mousex = d3.mouse(this);
             mousex = mousex[0] + 5;
